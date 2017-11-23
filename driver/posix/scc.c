@@ -199,12 +199,6 @@ settool(int tool, char *infile, int nexttool)
 		addarg(tool, t->outfile);
 		break;
 	case STRIP:
-		if (cflag || kflag) {
-			for (i = 0; i < objout.n; ++i)
-				addarg(tool, xstrdup(objout.s[i]));
-		}
-		if (!cflag && tools[LD].outfile)
-			addarg(tool, tools[LD].outfile);
 		break;
 	default:
 		break;
@@ -329,6 +323,7 @@ buildfile(char *file, int tool)
 			if (Eflag)
 				nexttool = LAST_TOOL;
 			else
+// nexttool = kflag ? TEEIR : CC2;
 				nexttool = kflag ? TEEIR : CC2;
 			break;
 		case TEEIR:
@@ -341,7 +336,7 @@ buildfile(char *file, int tool)
 				nexttool = kflag ? TEEQBE : QBE;
 			break;
 		case TEEQBE:
-			nexttool = QBE;
+			nexttool = LAST_TOOL;
 			break;
 		case QBE:
 			nexttool = (Sflag || kflag) ? TEEAS : AS;
@@ -504,10 +499,6 @@ operand:
 		validatetools();
 	}
 
-	if (sflag) {
-		spawn(settool(inittool(STRIP), NULL, LAST_TOOL));
-		validatetools();
-	}
 
 	return failure;
 }

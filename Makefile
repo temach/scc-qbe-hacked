@@ -40,8 +40,8 @@ install: all
 	cp -f bin/scc $(DESTDIR)/$(PREFIX)/bin/
 	cp -fr libc/include/* $(DESTDIR)/$(PREFIX)/include/scc/
 	find $(DESTDIR)/$(PREFIX)/include/scc/ -type f | xargs chmod 644
-	cd $(DESTDIR)/$(PREFIX)/libexec/scc/ && chmod 755 cc* && strip cc*
-	cd $(DESTDIR)/$(PREFIX)/bin && chmod 755 cpp scc && strip cpp scc
+	cd $(DESTDIR)/$(PREFIX)/libexec/scc/ && chmod 755 cc*
+	cd $(DESTDIR)/$(PREFIX)/bin && chmod 755 cpp scc
 
 uninstall:
 	rm -rf $(DESTDIR)/$(PREFIX)/include/scc/
